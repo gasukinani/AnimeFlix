@@ -28,12 +28,26 @@
     
     <!-- Google site verification (mock placeholder - user can replace with their own) -->
     <meta name="google-site-verification" content="RXRGO4okcCHlLpbSCBep6S9_xBH0SHg834pvPqqoSM0" />
+    
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#05050a" />
 
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').then(registration => {
+            console.log('SW registered: ', registration);
+          }).catch(registrationError => {
+            console.log('SW registration failed: ', registrationError);
+          });
+        });
+      }
+    </script>
   </body>
 </html>
 

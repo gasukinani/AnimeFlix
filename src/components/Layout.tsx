@@ -1,11 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { Search as SearchIcon, Home, Heart, PlaySquare, Compass, Tv } from 'lucide-react';
+import { Search as SearchIcon, Home, Heart, PlaySquare, Compass, Tv, Download } from 'lucide-react';
 
 export function Layout() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Listen for the beforeinstallprompt event for PWA installation
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      } else {
+        console.log('User dismissed the install prompt');
+      }
+      setDeferredPrompt(null);
+    } else {
+      // Fallback: If not installable via PWA prompt, you can point to a direct APK link if you have one.
+      alert('To install, use your browser menu "Add to Home Screen" or "Install App".');
+    }
+  };
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,6 +62,11 @@ export function Layout() {
               <NavLink to="/" className={({isActive}) => `px-4 py-2 rounded-full transition-colors ${isActive ? "bg-white/10 text-white border border-white/10" : "text-white/40 hover:bg-white/5"}`}>Home</NavLink>
               <NavLink to="/search" className={({isActive}) => `px-4 py-2 rounded-full transition-colors ${isActive ? "bg-white/10 text-white border border-white/10" : "text-white/40 hover:bg-white/5"}`}>Browse</NavLink>
               <NavLink to="/favorites" className={({isActive}) => `px-4 py-2 rounded-full transition-colors ${isActive ? "bg-white/10 text-white border border-white/10" : "text-white/40 hover:bg-white/5"}`}>My List</NavLink>
+              {deferredPrompt && (
+                <button onClick={handleInstallClick} className="px-4 py-2 rounded-full bg-indigo-500 hover:bg-indigo-600 text-white transition-colors flex items-center gap-2">
+                  <Download className="w-4 h-4" /> Install this APK
+                </button>
+              )}
             </nav>
 
             <form onSubmit={handleSearch} className="relative flex-1 max-w-sm hidden md:flex ml-auto">
@@ -94,6 +127,12 @@ export function Layout() {
             <Heart className="w-5 h-5" />
             <span className="text-[10px] font-bold uppercase">My List</span>
           </NavLink>
+          {deferredPrompt && (
+            <button onClick={handleInstallClick} className="flex flex-col items-center gap-1 p-2 rounded-lg text-indigo-400 hover:bg-white/5">
+              <Download className="w-5 h-5" />
+              <span className="text-[10px] font-bold uppercase whitespace-nowrap">Install APK</span>
+            </button>
+          )}
         </nav>
       </div>
     </div>
