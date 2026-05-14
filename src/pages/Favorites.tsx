@@ -2,12 +2,18 @@ import { useAppStore } from '../store';
 import { AnimeCard } from '../components/AnimeCard';
 import { Link } from 'react-router-dom';
 import { Play, History, Heart } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 export function Favorites() {
   const { favorites, history } = useAppStore();
 
   return (
     <div className="space-y-16 pb-24 md:pb-8">
+      <Helmet>
+        <title>My Library | AnimeHub+</title>
+        <meta name="description" content="Access your anime watch history and favorite series on AnimeHub+." />
+        <link rel="canonical" href="https://animehubplus.netlify.app/favorites" />
+      </Helmet>
       <section>
         <div className="flex items-center justify-between mb-8 px-2">
           <div className="flex items-center gap-3">

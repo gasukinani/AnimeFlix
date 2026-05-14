@@ -103,6 +103,27 @@ export function Watch() {
       <Helmet>
         <title>{`Watch ${anime.title} Episode ${epNumber} | AnimeHub+`}</title>
         <meta name="description" content={`Watch ${anime.title} Episode ${epNumber} online in high quality for free on AnimeHub+. Stream anime seamlessly without ads.`} />
+        <link rel="canonical" href={`https://animehubplus.netlify.app/watch/${anime.id}/${epNumber}`} />
+        <meta property="og:title" content={`Watch ${anime.title} Episode ${epNumber} | AnimeHub+`} />
+        <meta property="og:description" content={`Watch ${anime.title} Episode ${epNumber} online in high quality for free on AnimeHub+.`} />
+        <meta property="og:image" content={anime.img} />
+        <meta property="og:type" content="video.episode" />
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "TVEpisode",
+              "name": "${anime.title.replace(/"/g, '\\"')} Episode ${epNumber}",
+              "episodeNumber": "${epNumber}",
+              "partOfSeries": {
+                "@type": "TVSeries",
+                "name": "${anime.title.replace(/"/g, '\\"')}"
+              },
+              "image": "${anime.img}",
+              "description": "Watch ${anime.title.replace(/"/g, '\\"')} Episode ${epNumber} in high quality on AnimeHub+."
+            }
+          `}
+        </script>
       </Helmet>
       
       <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">

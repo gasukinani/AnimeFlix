@@ -78,9 +78,29 @@ export function AnimeDetails() {
       <Helmet>
         <title>{`${anime.title} | Watch on AnimeHub+`}</title>
         <meta name="description" content={anime.synopsis ? anime.synopsis.slice(0, 160) + '...' : `Watch ${anime.title} online for free on AnimeHub+.`} />
+        <link rel="canonical" href={`https://animehubplus.netlify.app/anime/${anime.id}`} />
         <meta property="og:title" content={`${anime.title} | Watch on AnimeHub+`} />
         <meta property="og:description" content={anime.synopsis ? anime.synopsis.slice(0, 160) + '...' : `Watch ${anime.title} online for free.`} />
         <meta property="og:image" content={anime.img} />
+        <meta property="og:type" content="video.tv_show" />
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "TVSeries",
+              "name": "${anime.title.replace(/"/g, '\\"')}",
+              "image": "${anime.img}",
+              "description": "${(anime.synopsis || '').replace(/"/g, '\\"').slice(0, 300)}",
+              "genre": [${(anime.genres || []).map((g: any) => `"${typeof g === 'string' ? g : g.name}"`).join(', ')}],
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "${anime.score || '8.5'}",
+                "bestRating": "10",
+                "worstRating": "1"
+              }
+            }
+          `}
+        </script>
       </Helmet>
       
       {/* Dynamic Header Structure */}

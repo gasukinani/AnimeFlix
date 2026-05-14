@@ -4,6 +4,7 @@ import { searchAnime } from '../lib/api';
 import { AnimeCard } from '../components/AnimeCard';
 import { formatScore, formatYear } from '../lib/utils';
 import { Search as SearchIcon, Ghost, LayoutGrid, List, Play } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 export function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -52,6 +53,11 @@ export function Search() {
 
   return (
     <div className="pb-24 md:pb-8">
+      <Helmet>
+        <title>{query ? `Searching for "${query}" | AnimeHub+` : genreName ? `${genreName} Anime | AnimeHub+` : 'Browse Anime | AnimeHub+'}</title>
+        <meta name="description" content={query ? `Search results for "${query}" on AnimeHub+. Find your favorite anime series.` : `Explore the best ${genreName || ''} anime on AnimeHub+. free high quality streaming.`} />
+        <link rel="canonical" href={`https://animehubplus.netlify.app/search${window.location.search}`} />
+      </Helmet>
       {/* Mobile search input */}
       <div className="md:hidden relative mb-8">
          <div className="relative flex items-center group w-full bg-[#16161f] border border-white/5 px-6 py-4 rounded-2xl backdrop-blur-md transition-all focus-within:border-indigo-500/50 shadow-xl">

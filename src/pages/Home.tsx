@@ -67,6 +67,22 @@ export function Home() {
       <Helmet>
         <title>AnimeHub+ | Watch Anime Free Online</title>
         <meta name="description" content="Watch high quality anime online on AnimeHub+ for free. Stream your favorite anime series without ads, latest episodes updated daily." />
+        <link rel="canonical" href="https://animehubplus.netlify.app/" />
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "AnimeHub+",
+              "url": "https://animehubplus.netlify.app/",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://animehubplus.netlify.app/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          `}
+        </script>
       </Helmet>
       {/* Hero Section */}
       {hero && (
