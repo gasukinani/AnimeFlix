@@ -10,6 +10,7 @@ import { Search } from './pages/Search';
 import { AnimeDetails } from './pages/AnimeDetails';
 import { Watch } from './pages/Watch';
 import { Favorites } from './pages/Favorites';
+import { NotFound } from './pages/NotFound';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="anime/:id" element={<AnimeDetails />} />
           <Route path="watch/:id/:episode" element={<Watch />} />
           <Route path="favorites" element={<Favorites />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </Router>

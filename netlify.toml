@@ -6,6 +6,12 @@
   node_bundler = "esbuild"
 
 [[redirects]]
+  from = "https://www.animehubplus.netlify.app/*"
+  to = "https://animehubplus.netlify.app/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
   status = 200
