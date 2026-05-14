@@ -97,6 +97,7 @@ export function Home() {
              <img 
                src={hero.img || 'https://via.placeholder.com/1920x1080?text=No+Image'} 
                alt={hero.title}
+               fetchPriority="high"
                className="w-full h-full object-cover object-top opacity-70 transform transition-transform duration-[25s] group-hover:scale-110"
              />
           </div>
@@ -268,37 +269,40 @@ export function Home() {
 
       {/* SEO Description Section */}
       <section className="px-4 py-20 border-t border-white/5 bg-white/[0.02] rounded-[3rem]">
-        <div className="max-w-4xl mx-auto space-y-10">
+        <div className="max-w-4xl mx-auto space-y-12">
           <div className="text-center space-y-4">
-            <h2 className="text-3xl md:text-5xl font-[Outfit] font-bold text-white tracking-tighter">Your Ultimate Free Anime Streaming Hub</h2>
-            <p className="text-indigo-400 font-bold uppercase tracking-[0.2em] text-[10px]">Quality Over Everything</p>
+            <h2 className="text-3xl md:text-5xl font-[Outfit] font-bold text-white tracking-tighter uppercase">The #1 Platform to Watch Anime Free</h2>
+            <p className="text-indigo-400 font-bold uppercase tracking-[0.2em] text-[10px]">Your Library of Infinite Stories</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-gray-400 font-medium leading-relaxed">
-            <div className="space-y-4">
-              <h3 className="text-white font-bold text-lg uppercase tracking-wider">Watch Anime Online for Free</h3>
+            <div className="space-y-6">
+              <h3 className="text-white font-bold text-xl uppercase tracking-wider border-b border-white/10 pb-4">Streaming Made Easy</h3>
               <p>
-                Experience the world of Japanese animation like never before. AnimeHub+ offers a vast library of the latest and greatest anime series, movies, and specials. From action-packed shonen to heart-warming slice of life, we have something for every fan.
+                AnimeHub+ is dedicated to providing fans worldwide with the best possible anime watching experience. Our mission is to make high-quality Japanese animation accessible to everyone, regardless of location or budget. With thousands of titles ranging from the latest seasonal hits to timeless classics, you'll never run out of things to watch.
               </p>
               <p>
-                Our platform is designed for enthusiasts who demand high-quality streaming without the hassle. We provide multiple servers and resolutions up to 1080p, ensuring a seamless viewing experience regardless of your connection speed.
+                Our server infrastructure is optimized for speed, offering low buffering times even during peak hours. Whether you're watching on your desktop, tablet, or smartphone, our responsive design ensures a premium experience. We support multiple languages and offer both subbed and dubbed versions for most of our library.
               </p>
             </div>
-            <div className="space-y-4">
-              <h3 className="text-white font-bold text-lg uppercase tracking-wider">No Ads, Just Anime</h3>
+            <div className="space-y-6">
+              <h3 className="text-white font-bold text-xl uppercase tracking-wider border-b border-white/10 pb-4">Features for Fans</h3>
               <p>
-                Tired of constant interruptions? AnimeHub+ focuses on providing a clean, user-friendly interface. Our goal is to make anime accessible to everyone, everywhere. We update our database daily with subbed and dubbed episodes as soon as they air in Japan.
+                We believe that watching anime should be personal. That's why we've built tools like the custom Watchlist, allowing you to save series and movies for later. Our intelligent recommendation engine learns from your viewing history to suggest new shows you're guaranteed to love.
               </p>
               <p>
-                Enjoy features like your own personal watchlist, viewing history, and smart recommendations based on what you love. Join our growing community of anime lovers and start your journey today.
+                Join our community of over 1 million active users and stay updated with the latest news from the anime world. We follow strict quality standards for our video encodes, providing 1080p Ultra HD content for the majority of our platform. Start your journey into the world of anime today with AnimeHub+.
               </p>
             </div>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4 pt-6">
-            {['Free Anime', 'Watch One Piece', 'New Anime 2026', 'Anime Streaming Sub', 'Dubbed Anime', 'Highest Quality'].map(tag => (
-              <span key={tag} className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs font-bold text-gray-500 uppercase tracking-widest">{tag}</span>
-            ))}
+          <div className="pt-10 space-y-6">
+             <h4 className="text-center text-white/40 text-xs font-bold uppercase tracking-[0.3em] mb-8">Popular Searches</h4>
+             <div className="flex flex-wrap justify-center gap-3">
+              {['Free Anime Online', 'Watch One Piece Free', 'Demon Slayer Season 4', 'Solo Leveling HD', 'Jujutsu Kaisen Streaming', 'Attack on Titan Final Season', 'Watch Naruto Shippuden', 'Bleach Thousand Year Blood War'].map(tag => (
+                <span key={tag} className="px-5 py-2.5 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold text-gray-400 hover:text-indigo-400 hover:border-indigo-500/30 transition-all cursor-default uppercase tracking-widest">{tag}</span>
+              ))}
+            </div>
           </div>
         </div>
       </section>

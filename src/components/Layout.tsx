@@ -57,9 +57,9 @@ export function Layout() {
               <div className="w-9 h-9 md:w-10 md:h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-600/30">
                  <PlaySquare className="w-5 h-5 text-white fill-current" />
               </div>
-              <h1 className="text-xl font-[Outfit] font-bold tracking-tight text-white block">
+              <span className="text-xl font-[Outfit] font-bold tracking-tight text-white block">
                 AnimeHub<span className="text-indigo-500">+</span>
-              </h1>
+              </span>
             </NavLink>
 
             <div className="flex-1 max-w-3xl px-4 md:px-8 flex items-center justify-end md:justify-between ml-auto">
