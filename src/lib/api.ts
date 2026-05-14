@@ -40,14 +40,16 @@ export async function getRecentEpisodes(page = 1) {
 }
 
 export async function searchAnime(query: string, page = 1, genreId?: string, type?: string) {
-  if (type === 'trending' || type === 'popular') {
+  if (type === 'trending' || type === 'popular' || type === 'toprated') {
     return await fetchLocal('/api/anime/popular', { page });
   }
-  if (type === 'seasonal' || type === 'recent') {
+  if (type === 'recent') {
     return await fetchLocal('/api/anime/recent', { page });
   }
-  
-  return await fetchLocal('/api/anime/search', { q: query, page });
+
+  // Check if we have genreId (it holds the genreName based on Home.tsx and Search.tsx logic or search param)
+  // Wait, in Search.tsx genreName is string. I will just pass genreId as the genre param.
+  return await fetchLocal('/api/anime/search', { q: query || '', page, type, genre: genreId });
 }
 
 export async function getAnimeDetails(id: string) {

@@ -1,4 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+}
 
 @layer utilities {
   .pb-safe {
@@ -7,9 +13,10 @@
 }
 
 body {
-  background-color: #05050a;
+  background-color: #0b0b12;
   color: #fff;
   overflow-x: hidden;
+  font-family: var(--font-sans);
 }
 
 .custom-scrollbar::-webkit-scrollbar {

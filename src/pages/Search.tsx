@@ -26,7 +26,7 @@ export function Search() {
       }
       setIsLoading(true);
       try {
-        const data = await searchAnime(query, 1, genreId, type);
+        const data = await searchAnime(query, 1, genreName, type);
         setResults(data);
       } catch (error) {
         console.warn("Search failed", error);
@@ -53,56 +53,61 @@ export function Search() {
     <div className="pb-24 md:pb-8">
       {/* Mobile search input */}
       <div className="md:hidden relative mb-8">
-         <div className="relative flex items-center group w-full bg-white/5 border border-white/10 px-6 py-4 rounded-2xl backdrop-blur-md transition-all focus-within:border-indigo-500/50 focus-within:bg-indigo-500/5 shadow-xl">
-           <SearchIcon className="w-5 h-5 text-white/40 group-focus-within:text-white mr-3 shrink-0" />
+         <div className="relative flex items-center group w-full bg-[#16161f] border border-white/5 px-6 py-4 rounded-2xl backdrop-blur-md transition-all focus-within:border-indigo-500/50 shadow-xl">
+           <SearchIcon className="w-5 h-5 text-indigo-500 group-focus-within:text-white mr-3 shrink-0" />
            <input
               type="text"
-              placeholder="Search anime..."
+              placeholder="Search anime series..."
               value={query}
               onChange={(e) => setSearchParams({ q: e.target.value, genre: genreId, name: genreName, type: type })}
-              className="bg-transparent outline-none w-full placeholder:text-white/20 text-white font-bold"
+              className="bg-transparent outline-none w-full placeholder:text-gray-600 text-white font-bold uppercase tracking-tight"
             />
          </div>
       </div>
 
-      <div className="mb-6 px-2 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <h1 className="text-2xl md:text-3xl font-black italic uppercase tracking-tighter flex-1">
+      <div className="mb-8 px-2 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <h1 className="text-2xl md:text-4xl font-[Outfit] font-bold tracking-tight text-white flex-1 uppercase tracking-wider">
           {genreId ? (
             <span className="flex items-center gap-3">
-              <span className="w-1.5 h-8 bg-indigo-500 rounded-full"></span>
-              Category: <span className="text-indigo-400">"{genreName}"</span>
+              <span className="w-1.5 h-6 bg-indigo-600 rounded-full shadow-[0_0_15px_rgba(79,70,229,0.4)]"></span>
+              Genre: <span className="text-indigo-400">"{genreName}"</span>
             </span>
           ) : query ? (
             <span className="flex items-center gap-3">
-              <span className="w-1.5 h-8 bg-indigo-500 rounded-full"></span>
+              <span className="w-1.5 h-6 bg-indigo-600 rounded-full shadow-[0_0_15px_rgba(79,70,229,0.4)]"></span>
               Search: <span className="text-indigo-400">"{query}"</span>
             </span>
           ) : type ? (
             <span className="flex items-center gap-3">
-              <span className="w-1.5 h-8 bg-indigo-500 rounded-full"></span>
-              Browse: <span className="text-indigo-400 capitalize">"{type}"</span>
+              <span className="w-1.5 h-6 bg-indigo-600 rounded-full shadow-[0_0_15px_rgba(79,70,229,0.4)]"></span>
+              Category: <span className="text-indigo-400 capitalize">"{type}"</span>
             </span>
-          ) : 'Browse All'}
+          ) : (
+            <span className="flex items-center gap-3">
+              <span className="w-1.5 h-6 bg-indigo-600 rounded-full shadow-[0_0_15px_rgba(79,70,229,0.4)]"></span>
+              Browse All
+            </span>
+          )}
         </h1>
 
-        <div className="flex items-center bg-white/5 p-1 rounded-xl self-start md:self-auto border border-white/5">
+        <div className="flex items-center bg-[#16161f] p-2 rounded-2xl self-start md:self-auto border border-white/5 shadow-2xl">
           <button 
             onClick={() => setViewMode('grid')}
-            className={`p-2 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/20' : 'text-white/40 hover:text-white'}`}
+            className={`p-2.5 rounded-xl transition-all duration-300 ${viewMode === 'grid' ? 'bg-indigo-600 text-white shadow-lg' : 'text-gray-500 hover:text-white hover:bg-white/5'}`}
           >
-            <LayoutGrid className="w-4 h-4" />
+            <LayoutGrid className="w-5 h-5" />
           </button>
           <button 
             onClick={() => setViewMode('list')}
-            className={`p-2 rounded-lg transition-all ${viewMode === 'list' ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/20' : 'text-white/40 hover:text-white'}`}
+            className={`p-2.5 rounded-xl transition-all duration-300 ${viewMode === 'list' ? 'bg-indigo-600 text-white shadow-lg' : 'text-gray-500 hover:text-white hover:bg-white/5'}`}
           >
-            <List className="w-4 h-4" />
+            <List className="w-5 h-5" />
           </button>
         </div>
       </div>
 
       {/* Filter Chips */}
-      <div className="flex gap-2 overflow-x-auto pb-6 px-2 custom-scrollbar">
+      <div className="flex gap-3 overflow-x-auto pb-10 px-2 custom-scrollbar no-scrollbar">
         {[
           { label: 'All', value: '' },
           { label: 'Trending', value: 'trending' },
@@ -113,10 +118,10 @@ export function Search() {
           <button
             key={btn.value}
             onClick={() => setType(btn.value)}
-            className={`shrink-0 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all border ${
+            className={`shrink-0 px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 border ${
               type === btn.value 
-                ? 'bg-indigo-500 border-indigo-400 text-white shadow-lg shadow-indigo-500/10' 
-                : 'bg-white/5 border-white/5 text-white/40 hover:text-white hover:bg-white/10'
+                ? 'bg-indigo-600 border-indigo-500 text-white shadow-xl shadow-indigo-600/20' 
+                : 'bg-white/5 border-white/5 text-gray-500 hover:text-white hover:bg-white/10'
             }`}
           >
             {btn.label}
@@ -126,24 +131,24 @@ export function Search() {
 
       {isLoading ? (
         <div className="flex justify-center py-20">
-          <div className="w-12 h-12 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin" />
+          <div className="w-12 h-12 border-4 border-indigo-500/20 border-t-indigo-600 rounded-full animate-spin" />
         </div>
       ) : results.length > 0 ? (
         viewMode === 'grid' ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 md:gap-8">
             {results.map((anime) => (
               <AnimeCard key={anime.id} anime={anime} />
             ))}
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-4">
             {results.map((anime) => (
               <Link 
                 key={anime.id}
                 to={`/anime/${anime.id}`}
-                className="flex items-center gap-4 bg-white/5 border border-white/5 p-3 rounded-2xl hover:border-indigo-500/30 hover:bg-indigo-500/5 transition-all group"
+                className="flex items-center gap-6 bg-[#16161f] border border-white/5 p-6 rounded-[2rem] hover:border-indigo-500/30 hover:bg-[#1a1a25] transition-all group shadow-sm hover:shadow-2xl"
               >
-                <div className="w-16 h-24 rounded-lg overflow-hidden shrink-0 shadow-lg border border-white/5">
+                <div className="w-24 h-36 rounded-2xl overflow-hidden shrink-0 shadow-lg border border-white/5">
                   <img 
                     src={anime.img} 
                     alt={anime.title}
@@ -151,41 +156,42 @@ export function Search() {
                   />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-black text-sm md:text-lg italic uppercase tracking-tighter truncate group-hover:text-indigo-400 transition-colors">
+                  <h3 className="font-[Outfit] font-bold text-lg md:text-2xl tracking-tight truncate text-white group-hover:text-indigo-400 transition-colors uppercase">
                     {anime.title}
                   </h3>
-                  <div className="flex gap-2 mt-1 flex-wrap">
+                  <div className="flex gap-3 mt-2 flex-wrap">
                     {Array.isArray(anime.genres) && anime.genres?.slice(0, 3).map((g: any) => {
                       const gName = typeof g === 'string' ? g : g.name;
                       return (
-                        <span key={gName} className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{gName}</span>
+                        <span key={gName} className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">{gName}</span>
                       );
                     })}
                   </div>
-                  <div className="flex items-center gap-4 mt-2">
-                    <span className="text-[10px] font-black text-indigo-400 italic">★ {anime.score || 'N/A'}</span>
-                    <span className="text-[10px] font-bold text-white/20 uppercase">{anime.released || 'N/A'}</span>
-                    <span className="text-[10px] font-black italic text-emerald-400 uppercase tracking-tighter">{anime.type}</span>
+                  <div className="flex items-center gap-6 mt-4">
+                    <span className="text-xs font-bold text-indigo-400 uppercase tracking-widest">★ {anime.score || 'N/A'}</span>
+                    <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">{anime.released || 'N/A'}</span>
+                    <span className="text-xs font-bold text-indigo-500 tracking-widest uppercase">{anime.type}</span>
                   </div>
                 </div>
-                <div className="hidden sm:flex items-center justify-center w-10 h-10 rounded-full border border-white/10 group-hover:border-indigo-500 group-hover:bg-indigo-500 transition-all mr-2">
-                   <Play className="w-4 h-4 text-white/20 group-hover:text-white" />
+                <div className="hidden sm:flex items-center justify-center w-14 h-14 rounded-full border border-white/10 bg-white/5 group-hover:border-indigo-600 group-hover:bg-indigo-600 shadow-sm group-hover:shadow-[0_0_20px_rgba(79,70,229,0.5)] transition-all mr-6">
+                   <Play className="w-6 h-6 text-gray-400 group-hover:text-white fill-current ml-1" />
                 </div>
               </Link>
             ))}
           </div>
         )
       ) : query ? (
-        <div className="text-center py-32 bg-white/5 rounded-3xl border border-white/5 backdrop-blur-md">
-           <Ghost className="w-16 h-16 mx-auto mb-4 text-white/10" />
-           <p className="text-xl font-black italic uppercase tracking-tighter text-white/40">Zero Signals Found</p>
-           <p className="mt-2 text-white/20 font-bold uppercase text-[10px] tracking-widest">Try different coordinates</p>
+        <div className="text-center py-32 bg-[#16161f] rounded-[3rem] border border-white/5 shadow-2xl relative overflow-hidden group">
+           <div className="absolute top-0 left-0 w-full h-full bg-indigo-600/5 opacity-0 group-hover:opacity-100 transition-opacity blur-[100px]" />
+           <Ghost className="w-20 h-20 mx-auto mb-8 text-gray-700" />
+           <p className="text-2xl font-[Outfit] text-white font-bold uppercase tracking-widest">No results found</p>
+           <p className="mt-2 text-gray-500 font-bold text-xs uppercase tracking-widest">We couldn't find any anime for "{query}"</p>
         </div>
       ) : (
-        <div className="text-center py-32 bg-white/5 rounded-3xl border border-white/5 backdrop-blur-md">
-          <SearchIcon className="w-16 h-16 mx-auto mb-6 text-indigo-500/20" />
-          <p className="text-lg font-black italic uppercase tracking-tighter text-white/30">Enter Transmission Query</p>
-          <p className="mt-2 text-white/20 font-bold uppercase text-[10px] tracking-widest">Search for titles, studios, or genres</p>
+        <div className="text-center py-32 bg-[#16161f] rounded-[3rem] border border-white/5 shadow-2xl">
+          <SearchIcon className="w-24 h-24 mx-auto mb-8 text-indigo-600/10" />
+          <p className="text-2xl font-[Outfit] font-bold text-white uppercase tracking-widest">Find Your Next Story</p>
+          <p className="mt-2 text-gray-500 font-bold text-xs uppercase tracking-widest">Search through thousands of anime titles.</p>
         </div>
       )}
     </div>

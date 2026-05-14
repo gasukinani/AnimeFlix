@@ -12,65 +12,61 @@ export function AnimeCard({ anime }: AnimeCardProps) {
   const imageUrl = anime.img || (anime.images?.webp?.large_image_url || anime.images?.jpg?.large_image_url);
   const animeId = anime.id || anime.mal_id;
   const animeTitle = anime.title_english || anime.title;
+  const rating = anime.score || anime.rating;
   
   return (
-    <Link to={`/anime/${animeId}`} className="group relative rounded-2xl overflow-hidden border border-white/5 bg-white/5 p-3 hover:border-indigo-500/30 hover:bg-indigo-500/5 transition-all cursor-pointer flex flex-col gap-3 shadow-xl backdrop-blur-md">
-      <div className="relative aspect-[15/22] bg-zinc-800 rounded-xl overflow-hidden shrink-0 shadow-lg">
+    <Link to={`/anime/${animeId}`} className="group relative rounded-2xl overflow-hidden bg-[#16161f] border border-white/5 hover:border-indigo-500/30 hover:bg-[#1a1a25] transition-all duration-500 cursor-pointer flex flex-col shadow-lg active:scale-[0.98]">
+      <div className="relative aspect-[3/4] bg-zinc-900 overflow-hidden shrink-0">
         <img
-          src={imageUrl || 'https://via.placeholder.com/600x900?text=No+Image'}
+          src={imageUrl || 'https://via.placeholder.com/600x800?text=No+Image'}
           alt={animeTitle}
           loading="lazy"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
         
-        {/* Hover overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+        {/* Quality overlay */}
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div>
         
-        {(anime.score || anime.episode) && (
-          <div className="absolute top-2 right-2 bg-indigo-500 text-white px-2 py-0.5 rounded-lg text-[9px] font-black italic flex items-center gap-1 shadow-lg shadow-indigo-500/20 uppercase tracking-tighter">
-            {anime.score ? <Star className="w-2.5 h-2.5 fill-current" /> : <Play className="w-2.5 h-2.5 fill-current" />}
-            {anime.score || `EP ${anime.episode}`}
+        {rating && (
+          <div className="absolute top-3 right-3 bg-indigo-600 backdrop-blur-md text-white px-2 py-1 rounded-lg text-[10px] font-bold flex items-center gap-1 shadow-lg shadow-indigo-500/20">
+            <Star className="w-3 h-3 fill-current" />
+            <span>{rating}</span>
           </div>
         )}
         
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 scale-90 group-hover:scale-100">
-          <div className="bg-indigo-500 shadow-xl shadow-indigo-500/40 backdrop-blur-md rounded-full p-3.5 transform group-hover:rotate-12 transition-transform">
-            <Play className="w-5 h-5 fill-current text-white ml-0.5" />
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-90 group-hover:scale-100 backdrop-blur-[2px]">
+          <div className="bg-white text-black shadow-2xl rounded-full p-4 flex items-center justify-center">
+            <Play className="w-5 h-5 fill-current ml-1" />
           </div>
         </div>
       </div>
       
-      <div className="flex-1 flex flex-col justify-start px-1">
-        <h3 className="font-black text-xs md:text-sm leading-tight line-clamp-2 uppercase tracking-tighter italic group-hover:text-indigo-400 transition-colors" title={animeTitle}>
+      <div className="flex-1 flex flex-col justify-start p-4">
+        <h3 className="font-[Outfit] font-bold text-sm md:text-base leading-tight line-clamp-2 text-white group-hover:text-indigo-400 transition-colors" title={animeTitle}>
           {animeTitle}
         </h3>
         
         {/* Genres/Tags */}
         {anime.genres && Array.isArray(anime.genres) && anime.genres.length > 0 && (
-          <div className="flex flex-wrap gap-1 mt-2">
+          <div className="flex flex-wrap gap-1.5 mt-3">
             {anime.genres.slice(0, 2).map((genre: any) => {
               const gName = typeof genre === 'string' ? genre : genre.name;
               const gId = typeof genre === 'string' ? genre.toLowerCase() : genre.mal_id;
               return (
-                <button
+                <span
                   key={gId}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    navigate(`/search?genre=${gId}&name=${encodeURIComponent(gName)}`);
-                  }}
-                  className="text-[8px] font-black uppercase tracking-widest bg-white/5 px-2 py-0.5 rounded-full border border-white/5 hover:border-indigo-500/50 hover:bg-indigo-500/10 transition-all text-white/40 hover:text-indigo-400"
+                  className="text-[10px] font-semibold bg-white/5 px-2 py-0.5 rounded-full border border-white/5 text-gray-400"
                 >
                   {gName}
-                </button>
+                </span>
               );
             })}
           </div>
         )}
 
-        <div className="flex justify-between items-center mt-auto pt-2">
-          <p className="text-[9px] text-white/30 font-bold uppercase tracking-widest">{anime.released || anime.year || anime.aired?.prop?.from?.year || 'Now'}</p>
-          <span className="text-[9px] text-indigo-400 font-black italic uppercase tracking-tighter">{anime.type || (anime.episodes ? `${anime.episodes} EPS` : 'AIRING')}</span>
+        <div className="flex justify-between items-center mt-auto pt-4 border-t border-white/5 mt-4">
+          <span className="text-[11px] text-gray-500 font-medium">{anime.released || anime.year || anime.aired?.prop?.from?.year || 'Now'}</span>
+          <span className="text-[10px] text-indigo-400/80 font-bold px-2 py-0.5 bg-indigo-500/10 rounded-md border border-indigo-500/10 uppercase tracking-wider">{anime.type || (anime.episodes ? `${anime.episodes} EP` : 'TV')}</span>
         </div>
       </div>
     </Link>

@@ -66,12 +66,12 @@ export function Watch() {
   if (isLoading) {
     return (
        <div className="flex items-center justify-center min-h-[70vh]">
-        <div className="w-12 h-12 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin" />
+        <div className="w-12 h-12 border-4 border-indigo-500/20 border-t-indigo-600 rounded-full animate-spin" />
       </div>
     );
   }
 
-  if (!anime) return <div className="p-8 text-center text-gray-400">Anime not found.</div>;
+  if (!anime) return <div className="p-8 text-center text-gray-500 font-bold italic tracking-widest uppercase">Anime data not found.</div>;
 
   const displayEpisodes = episodes?.length > 0 
     ? episodes 
@@ -99,35 +99,34 @@ export function Watch() {
   const activeSource = streamData?.sources?.[currentServer];
 
   return (
-    <div className="pb-24 max-w-6xl mx-auto px-4 sm:px-6">
+    <div className="pb-24 max-w-7xl mx-auto px-4 sm:px-6">
       <Helmet>
-        <title>{`Watch ${anime.title} Episode ${epNumber} Free on AnimeFlix`}</title>
-        <meta name="description" content={`Watch ${anime.title} Episode ${epNumber} online in high quality for free on AnimeFlix. Stream anime seamlessly without ads.`} />
-        <meta property="og:title" content={`Watch ${anime.title} Episode ${epNumber} Free`} />
-        <meta property="og:description" content={`Stream ${anime.title} Episode ${epNumber} online.`} />
+        <title>{`Watch ${anime.title} Episode ${epNumber} | AnimeHub+`}</title>
+        <meta name="description" content={`Watch ${anime.title} Episode ${epNumber} online in high quality for free on AnimeHub+. Stream anime seamlessly without ads.`} />
       </Helmet>
-      <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <Link to={`/anime/${anime.id}`} className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors w-fit">
-          <ArrowLeft className="w-5 h-5" />
-          <span className="font-medium">Back to Details</span>
+      
+      <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        <Link to={`/anime/${anime.id}`} className="inline-flex items-center gap-3 text-gray-500 hover:text-indigo-400 transition-all w-fit group">
+          <ArrowLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
+          <span className="font-bold uppercase text-xs tracking-widest">Back to Details</span>
         </Link>
         <div className="sm:text-right">
-          <h1 className="font-bold text-lg md:text-xl line-clamp-1 italic uppercase">{anime.title}</h1>
-          <p className="text-sm text-indigo-400 font-bold">Episode {epNumber}</p>
+          <h1 className="font-[Outfit] font-bold text-2xl md:text-3xl tracking-tight text-white line-clamp-1">{anime.title}</h1>
+          <p className="text-sm font-bold uppercase tracking-widest text-indigo-500">Episode {epNumber}</p>
         </div>
       </div>
 
-      <div className="mb-4 relative z-10 w-full rounded-2xl md:rounded-[32px] overflow-hidden shadow-2xl bg-black border border-white/10 group">
+      <div className="mb-6 relative z-10 w-full rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl bg-[#0b0b12] border border-white/5 group">
         {error ? (
-          <div className="aspect-video flex flex-col items-center justify-center bg-white/5 p-6 text-center">
-            <AlertCircle className="w-12 h-12 text-red-500 mb-4" />
-            <p className="text-xl font-semibold mb-2">Stream Unavailable</p>
-            <p className="text-white/50 mb-6 max-w-md">{error}</p>
+          <div className="aspect-video flex flex-col items-center justify-center bg-[#0b0b12] p-8 text-center">
+            <AlertCircle className="w-16 h-16 text-gray-600 mb-6" />
+            <p className="text-2xl font-bold uppercase text-white tracking-widest mb-2">Video Unavailable</p>
+            <p className="text-gray-500 mb-8 max-w-md text-sm font-medium leading-relaxed">{error}</p>
             <button 
               onClick={() => window.location.reload()}
-              className="px-6 py-2 bg-white text-black rounded-full font-bold hover:bg-gray-200 transition-colors shadow-lg"
+              className="px-10 py-4 bg-indigo-600 text-white rounded-2xl font-bold uppercase tracking-widest hover:bg-indigo-500 transition-all shadow-xl shadow-indigo-600/20"
             >
-              Retry
+              Reload Player
             </button>
           </div>
         ) : activeSource ? (
@@ -142,50 +141,51 @@ export function Watch() {
                 onDownload={streamData?.download ? handleDownload : undefined}
               />
             </div>
-            <div className="absolute bottom-16 right-4 sm:right-8 z-30 flex flex-col gap-2 scale-90 sm:scale-100 items-end">
+            <div className="absolute bottom-16 right-4 sm:right-10 z-30 flex flex-col gap-3 scale-90 sm:scale-100 items-end pointer-events-none">
               <button
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   const video = document.querySelector('video');
                   if (video) video.currentTime += 85;
                 }}
-                className="bg-white/10 backdrop-blur-md text-white px-4 py-2 rounded-xl font-bold opacity-0 group-hover:opacity-100 transition-all border border-white/10 text-xs uppercase tracking-widest hover:bg-white/20"
+                className="bg-black/60 backdrop-blur-md text-white px-6 py-2.5 rounded-xl font-bold opacity-0 group-hover:opacity-100 transition-all border border-white/10 text-xs uppercase tracking-widest hover:bg-black/80 pointer-events-auto"
               >
                 Skip Intro
               </button>
               {hasNextEpisode && (
                 <button
                   onClick={handleNextEpisode}
-                  className="flex items-center gap-2 bg-indigo-500/80 backdrop-blur-md text-white px-4 py-2 rounded-xl font-bold opacity-0 group-hover:opacity-100 transition-all shadow-lg text-sm hover:bg-indigo-600"
+                  className="flex items-center gap-3 bg-indigo-600 text-white px-8 py-4 rounded-xl font-bold opacity-0 group-hover:opacity-100 transition-all shadow-2xl text-sm uppercase tracking-widest hover:bg-indigo-500 shadow-indigo-600/20 pointer-events-auto"
                 >
-                  Next Episode <ChevronRight className="w-4 h-4" />
+                  Next Episode <ChevronRight className="w-5 h-5" />
                 </button>
               )}
             </div>
           </>
         ) : (
-          <div className="aspect-video flex items-center justify-center bg-white/5">
-            <div className="text-center p-6">
-              <Play className="w-12 h-12 text-indigo-500/20 mx-auto mb-4" />
-              <p className="text-white/40 font-medium font-mono">ENCRYPTING STREAM...</p>
+          <div className="aspect-video flex items-center justify-center bg-[#0b0b12]">
+            <div className="text-center p-8">
+              <Play className="w-16 h-16 text-indigo-500/20 mx-auto mb-6 animate-pulse" />
+              <p className="text-indigo-500/60 text-xs font-bold uppercase tracking-widest animate-pulse">Loading Video Stream...</p>
             </div>
           </div>
         )}
       </div>
 
-      <div className="flex flex-col md:flex-row gap-4 mb-8">
+      <div className="flex flex-col md:flex-row gap-5 mb-14">
         {streamData?.sources && streamData.sources.length > 1 && (
           <div className="flex flex-wrap gap-2 flex-1">
             {streamData.sources.map((s: any, idx: number) => (
               <button
                 key={idx}
                 onClick={() => setCurrentServer(idx)}
-                className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-tighter transition-all border ${
+                className={`px-6 py-3 rounded-2xl text-[11px] uppercase font-bold tracking-widest transition-all border ${
                   currentServer === idx 
-                    ? 'bg-indigo-500 text-white border-indigo-400 shadow-lg shadow-indigo-500/20' 
-                    : 'bg-white/5 text-white/40 border-white/10 hover:bg-white/10'
+                    ? 'bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-600/20' 
+                    : 'bg-white/5 text-gray-500 border-white/10 hover:bg-white/10 hover:text-white'
                 }`}
               >
-                {s.name || `Server ${idx + 1}`}
+                {s.name || `Server 0${idx + 1}`}
               </button>
             ))}
           </div>
@@ -194,65 +194,64 @@ export function Watch() {
         {hasNextEpisode && (
           <button
             onClick={handleNextEpisode}
-            className="flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white px-6 py-2.5 rounded-xl font-bold transition-all border border-white/10 text-sm shrink-0"
+            className="flex items-center justify-center gap-2 bg-indigo-600/10 hover:bg-indigo-600 text-indigo-400 hover:text-white px-10 py-3.5 rounded-2xl font-bold transition-all border border-indigo-500/20 text-xs uppercase tracking-widest shrink-0"
           >
-            Next Episode <ChevronRight className="w-4 h-4" />
+            Watch Next Episode <ChevronRight className="w-5 h-5" />
           </button>
         )}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-4">
-        <div className="lg:col-span-2 space-y-6">
-          {/* Episode Info */}
-          <div className="bg-white/5 rounded-2xl md:rounded-3xl p-6 md:p-8 border border-white/5 shadow-2xl backdrop-blur-md">
-            <h2 className="text-xl md:text-2xl font-black mb-4 italic uppercase tracking-tighter flex items-center gap-2">
-              <span className="w-2 h-8 bg-indigo-500 rounded-full"></span>
-              Description
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="lg:col-span-2 space-y-10">
+          <div className="bg-[#16161f] rounded-[2.5rem] p-10 md:p-14 border border-white/5 shadow-2xl relative overflow-hidden group">
+            <h2 className="text-2xl font-[Outfit] font-bold mb-8 tracking-tight text-white uppercase tracking-widest flex items-center gap-3">
+              <span className="w-1.5 h-6 bg-indigo-600 rounded-full" />
+              Synopsis
             </h2>
-            <p className="text-white/70 leading-relaxed font-medium text-sm md:text-base">
+            <p className="text-gray-400 leading-relaxed font-medium text-base md:text-lg">
               {anime.synopsis}
             </p>
           </div>
         </div>
 
         <div className="order-first lg:order-last">
-           <div className="flex items-center gap-2 mb-4 px-2">
-             <List className="w-5 h-5 text-indigo-400" />
-             <h3 className="font-black text-lg uppercase italic tracking-tighter">Episodes</h3>
-           </div>
-           
-           <div className="bg-white/5 rounded-2xl md:rounded-3xl border border-white/5 overflow-hidden flex flex-col h-[400px] lg:h-[600px] shadow-2xl backdrop-blur-md">
-             <div className="flex-1 overflow-y-auto p-3 space-y-2 custom-scrollbar">
-                {displayEpisodes.map((ep: any, index: number) => {
-                   const epIndex = ep.number || index + 1;
-                   const isActive = epIndex === epNumber;
-                   
-                   return (
-                     <Link
-                       key={index}
-                       to={`/watch/${anime.id}/${epIndex}`}
-                       className={`flex items-center gap-3 p-3 rounded-2xl transition-all ${
-                         isActive 
-                           ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30' 
-                           : 'hover:bg-white/5 border border-transparent'
-                       }`}
-                     >
-                       <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold shrink-0 shadow-lg ${
-                         isActive ? 'bg-indigo-500 text-white shadow-indigo-500/30 font-black' : 'bg-white/10 text-white/40 border border-white/5'
-                       }`}>
-                         {isActive ? <Play className="w-5 h-5 fill-current ml-0.5" /> : epIndex}
-                       </div>
-                       <div className="flex-1 min-w-0">
-                         <p className={`text-sm font-bold line-clamp-1 ${isActive ? 'text-white' : 'text-white/70'}`}>
-                           Episode {epIndex}
-                         </p>
-                       </div>
-                     </Link>
-                   );
-                 })}
-             </div>
-           </div>
-         </div>
+          <div className="flex items-center gap-3 mb-8 px-4">
+            <List className="w-6 h-6 text-indigo-500" />
+            <h3 className="font-[Outfit] font-bold text-2xl text-white tracking-tight uppercase tracking-widest">Episodes</h3>
+          </div>
+          
+          <div className="bg-[#16161f] rounded-[2.5rem] border border-white/5 overflow-hidden flex flex-col h-[500px] lg:h-[750px] shadow-2xl">
+            <div className="flex-1 overflow-y-auto p-6 space-y-3 custom-scrollbar">
+              {displayEpisodes.map((ep: any, index: number) => {
+                const epIndex = ep.number || index + 1;
+                const isActive = epIndex === epNumber;
+                
+                return (
+                  <Link
+                    key={index}
+                    to={`/watch/${anime.id}/${epIndex}`}
+                    className={`flex items-center gap-5 p-5 rounded-2xl transition-all duration-300 border ${
+                      isActive 
+                        ? 'bg-indigo-600/10 text-indigo-400 border-indigo-500/30' 
+                        : 'hover:bg-white/5 border-transparent text-gray-500 hover:text-white'
+                    }`}
+                  >
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-sm font-bold shrink-0 transition-all ${
+                      isActive ? 'bg-indigo-600 text-white shadow-xl shadow-indigo-600/20' : 'bg-white/5 text-gray-500'
+                    }`}>
+                      {isActive ? <Play className="w-5 h-5 fill-current ml-0.5" /> : (epIndex < 10 ? `0${epIndex}` : epIndex)}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className={`text-xs font-bold uppercase tracking-widest line-clamp-1 ${isActive ? 'text-white' : ''}`}>
+                        Episode {epIndex}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

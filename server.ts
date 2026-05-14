@@ -68,11 +68,21 @@ apiRouter.get("/anime/recent", async (req, res) => {
     try {
       const q = req.query.q;
       const page = req.query.page || 1;
+      const type = req.query.type;
+      const genre = req.query.genre; // using genreName
       
       let targetUrl = `${process.env.BASE_URL}/search.html?keyword=${encodeURIComponent(q as string)}&page=${page}`;
-      if (!q) {
-        // If no query, browse the anime list
-        targetUrl = `${process.env.BASE_URL}/anime-list.html?page=${page}`;
+      
+      if (genre) {
+        // e.g., /genre/action?page=1
+        targetUrl = `${process.env.BASE_URL}/genre/${encodeURIComponent(String(genre).toLowerCase().replace(/\s+/g, '-'))}?page=${page}`;
+      } else if (type === 'movie') {
+        targetUrl = `${process.env.BASE_URL}/anime-movies.html?page=${page}`;
+      } else if (type === 'seasonal') {
+        targetUrl = `${process.env.BASE_URL}/new-season.html?page=${page}`;
+      } else if (!q) {
+        // Fallback to popular if no query so UI isn't empty
+        targetUrl = `${process.env.BASE_URL}/popular.html?page=${page}`;
       }
       
       const response = await axios.get(targetUrl);
