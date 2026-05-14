@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate, Link } from 'react-router-dom';
 import { Search as SearchIcon, Home, Heart, PlaySquare, Compass, Tv, Download } from 'lucide-react';
 
 export function Layout() {
@@ -57,9 +57,9 @@ export function Layout() {
               <div className="w-9 h-9 md:w-10 md:h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-600/30">
                  <PlaySquare className="w-5 h-5 text-white fill-current" />
               </div>
-              <span className="text-xl font-[Outfit] font-bold tracking-tight text-white hidden sm:block">
+              <h1 className="text-xl font-[Outfit] font-bold tracking-tight text-white hidden sm:block">
                 AnimeHub<span className="text-indigo-500">+</span>
-              </span>
+              </h1>
             </NavLink>
 
             <div className="flex-1 max-w-3xl px-4 md:px-8 flex items-center justify-end md:justify-between ml-auto">
@@ -117,6 +117,64 @@ export function Layout() {
         <main className="flex-1 w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
           <Outlet />
         </main>
+
+        {/* Footer for SEO and navigation */}
+        <footer className="mt-auto border-t border-white/5 bg-[#0b0b12] py-16 px-4 sm:px-6 lg:px-8 pb-32 md:pb-16 relative z-10">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div className="space-y-6">
+              <NavLink to="/" className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+                  <PlaySquare className="w-4 h-4 text-white fill-current" />
+                </div>
+                <span className="text-xl font-[Outfit] font-bold text-white">AnimeHub<span className="text-indigo-500">+</span></span>
+              </NavLink>
+              <p className="text-gray-500 text-sm leading-relaxed font-medium">
+                The ultimate destination for watching anime online in high quality for free. Stream your favorite series without any interruptions.
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="text-white font-bold mb-6 tracking-widest text-[10px] uppercase">Navigation</h4>
+              <ul className="space-y-4 text-sm text-gray-400 font-medium">
+                <li><NavLink to="/" className="hover:text-indigo-400 transition-colors">Home</NavLink></li>
+                <li><NavLink to="/search" className="hover:text-indigo-400 transition-colors">Browse Anime</NavLink></li>
+                <li><NavLink to="/favorites" className="hover:text-indigo-400 transition-colors">My Watchlist</NavLink></li>
+                <li><NavLink to="/search?type=trending" className="hover:text-indigo-400 transition-colors">Trending Now</NavLink></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-white font-bold mb-6 tracking-widest text-[10px] uppercase">Genres</h4>
+              <ul className="space-y-4 text-sm text-gray-400 font-medium">
+                <li><Link to="/search?genre=1&name=Action" className="hover:text-indigo-400 transition-colors">Action</Link></li>
+                <li><Link to="/search?genre=2&name=Adventure" className="hover:text-indigo-400 transition-colors">Adventure</Link></li>
+                <li><Link to="/search?genre=4&name=Comedy" className="hover:text-indigo-400 transition-colors">Comedy</Link></li>
+                <li><Link to="/search?genre=10&name=Fantasy" className="hover:text-indigo-400 transition-colors">Fantasy</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-white font-bold mb-6 tracking-widest text-[10px] uppercase">Community</h4>
+              <ul className="space-y-4 text-sm text-gray-400 font-medium tracking-tight">
+                <li><a href="#" className="hover:text-indigo-400 transition-colors">Discord Server</a></li>
+                <li><a href="#" className="hover:text-indigo-400 transition-colors">Terms of Service</a></li>
+                <li><a href="#" className="hover:text-indigo-400 transition-colors">Privacy Policy</a></li>
+                <li className="text-[10px] text-gray-600 mt-4 leading-normal">
+                  AnimeHub+ does not store any files on its server. All contents are provided by non-affiliated third parties.
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="max-w-7xl mx-auto border-t border-white/5 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p className="text-gray-600 text-[10px] font-bold uppercase tracking-widest">
+              © 2026 AnimeHub+ • All Rights Reserved
+            </p>
+            <div className="flex gap-6">
+              <span className="text-indigo-400 font-bold text-[10px] tracking-widest cursor-default">LIGHTNING FAST STREAMING</span>
+            </div>
+          </div>
+        </footer>
 
         {/* Mobile nav indicator */}
         <nav className="md:hidden fixed bottom-6 inset-x-4 h-16 bg-[#16161f]/90 backdrop-blur-3xl border border-white/10 flex items-center justify-around z-50 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden">

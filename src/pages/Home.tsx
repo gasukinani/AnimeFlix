@@ -265,6 +265,43 @@ export function Home() {
           ))}
         </div>
       </section>
+
+      {/* SEO Description Section */}
+      <section className="px-4 py-20 border-t border-white/5 bg-white/[0.02] rounded-[3rem]">
+        <div className="max-w-4xl mx-auto space-y-10">
+          <div className="text-center space-y-4">
+            <h2 className="text-3xl md:text-5xl font-[Outfit] font-bold text-white tracking-tighter">Your Ultimate Free Anime Streaming Hub</h2>
+            <p className="text-indigo-400 font-bold uppercase tracking-[0.2em] text-[10px]">Quality Over Everything</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-gray-400 font-medium leading-relaxed">
+            <div className="space-y-4">
+              <h3 className="text-white font-bold text-lg uppercase tracking-wider">Watch Anime Online for Free</h3>
+              <p>
+                Experience the world of Japanese animation like never before. AnimeHub+ offers a vast library of the latest and greatest anime series, movies, and specials. From action-packed shonen to heart-warming slice of life, we have something for every fan.
+              </p>
+              <p>
+                Our platform is designed for enthusiasts who demand high-quality streaming without the hassle. We provide multiple servers and resolutions up to 1080p, ensuring a seamless viewing experience regardless of your connection speed.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <h3 className="text-white font-bold text-lg uppercase tracking-wider">No Ads, Just Anime</h3>
+              <p>
+                Tired of constant interruptions? AnimeHub+ focuses on providing a clean, user-friendly interface. Our goal is to make anime accessible to everyone, everywhere. We update our database daily with subbed and dubbed episodes as soon as they air in Japan.
+              </p>
+              <p>
+                Enjoy features like your own personal watchlist, viewing history, and smart recommendations based on what you love. Join our growing community of anime lovers and start your journey today.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-4 pt-6">
+            {['Free Anime', 'Watch One Piece', 'New Anime 2026', 'Anime Streaming Sub', 'Dubbed Anime', 'Highest Quality'].map(tag => (
+              <span key={tag} className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs font-bold text-gray-500 uppercase tracking-widest">{tag}</span>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
