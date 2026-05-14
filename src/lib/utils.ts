@@ -24,3 +24,16 @@ export function formatYear(year: any): string {
   if (!year || year === 'N/A') return '2024';
   return String(year);
 }
+
+export function getBreadcrumbSchema(items: { name: string, item: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": item.name,
+      "item": `https://animehubplus.netlify.app${item.item}`
+    }))
+  };
+}

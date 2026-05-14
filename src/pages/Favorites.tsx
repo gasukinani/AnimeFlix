@@ -3,6 +3,7 @@ import { AnimeCard } from '../components/AnimeCard';
 import { Link } from 'react-router-dom';
 import { Play, History, Heart } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
+import { getBreadcrumbSchema } from '../lib/utils';
 
 export function Favorites() {
   const { favorites, history } = useAppStore();
@@ -13,6 +14,12 @@ export function Favorites() {
         <title>My Library | AnimeHub+</title>
         <meta name="description" content="Access your anime watch history and favorite series on AnimeHub+." />
         <link rel="canonical" href="https://animehubplus.netlify.app/favorites" />
+        <script type="application/ld+json">
+          {JSON.stringify(getBreadcrumbSchema([
+            { name: 'Home', item: '/' },
+            { name: 'Library', item: '/favorites' }
+          ]))}
+        </script>
       </Helmet>
       <section>
         <div className="flex items-center justify-between mb-8 px-2">

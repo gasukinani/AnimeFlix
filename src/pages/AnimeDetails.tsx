@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { getAnimeDetails, getAnimeEpisodes, getAnimeRelations, getAnimeRecommendations } from '../lib/api';
 import { useAppStore } from '../store';
 import { Play, Heart, Star, Calendar, Clock, BookOpen, Share2, Layers, Sparkles } from 'lucide-react';
-import { cn, formatScore, formatYear } from '../lib/utils';
+import { cn, formatScore, formatYear, getBreadcrumbSchema } from '../lib/utils';
 
 export function AnimeDetails() {
   const { id } = useParams();
@@ -84,22 +84,27 @@ export function AnimeDetails() {
         <meta property="og:image" content={anime.img} />
         <meta property="og:type" content="video.tv_show" />
         <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "TVSeries",
-              "name": "${anime.title.replace(/"/g, '\\"')}",
-              "image": "${anime.img}",
-              "description": "${(anime.synopsis || '').replace(/"/g, '\\"').slice(0, 300)}",
-              "genre": [${(anime.genres || []).map((g: any) => `"${typeof g === 'string' ? g : g.name}"`).join(', ')}],
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "${anime.score || '8.5'}",
-                "bestRating": "10",
-                "worstRating": "1"
-              }
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TVSeries",
+            "name": anime.title,
+            "image": anime.img,
+            "description": anime.synopsis?.slice(0, 300),
+            "genre": (anime.genres || []).map((g: any) => typeof g === 'string' ? g : g.name),
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": anime.score || '8.5',
+              "bestRating": "10",
+              "worstRating": "1"
             }
-          `}
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(getBreadcrumbSchema([
+            { name: 'Home', item: '/' },
+            { name: 'Search', item: '/search' },
+            { name: anime.title, item: `/anime/${anime.id}` }
+          ]))}
         </script>
       </Helmet>
       

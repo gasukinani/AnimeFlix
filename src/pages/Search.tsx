@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { searchAnime } from '../lib/api';
 import { AnimeCard } from '../components/AnimeCard';
-import { formatScore, formatYear } from '../lib/utils';
+import { formatScore, formatYear, getBreadcrumbSchema } from '../lib/utils';
 import { Search as SearchIcon, Ghost, LayoutGrid, List, Play } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 
@@ -57,6 +57,12 @@ export function Search() {
         <title>{query ? `Searching for "${query}" | AnimeHub+` : genreName ? `${genreName} Anime | AnimeHub+` : 'Browse Anime | AnimeHub+'}</title>
         <meta name="description" content={query ? `Search results for "${query}" on AnimeHub+. Find your favorite anime series.` : `Explore the best ${genreName || ''} anime on AnimeHub+. free high quality streaming.`} />
         <link rel="canonical" href={`https://animehubplus.netlify.app/search${window.location.search}`} />
+        <script type="application/ld+json">
+          {JSON.stringify(getBreadcrumbSchema([
+            { name: 'Home', item: '/' },
+            { name: 'Search', item: '/search' }
+          ]))}
+        </script>
       </Helmet>
       {/* Mobile search input */}
       <div className="md:hidden relative mb-8">

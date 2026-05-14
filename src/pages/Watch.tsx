@@ -5,7 +5,7 @@ import { getAnimeDetails, getAnimeEpisodes, getStreamingLinks, getAnimeRelations
 import { useAppStore } from '../store';
 import { VideoPlayer } from '../components/VideoPlayer';
 import { ArrowLeft, Play, List, AlertCircle, ChevronRight, Layers } from 'lucide-react';
-import { cn } from '../lib/utils';
+import { cn, getBreadcrumbSchema } from '../lib/utils';
 
 export function Watch() {
   const { id, episode } = useParams();
@@ -109,20 +109,26 @@ export function Watch() {
         <meta property="og:image" content={anime.img} />
         <meta property="og:type" content="video.episode" />
         <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "TVEpisode",
-              "name": "${anime.title.replace(/"/g, '\\"')} Episode ${epNumber}",
-              "episodeNumber": "${epNumber}",
-              "partOfSeries": {
-                "@type": "TVSeries",
-                "name": "${anime.title.replace(/"/g, '\\"')}"
-              },
-              "image": "${anime.img}",
-              "description": "Watch ${anime.title.replace(/"/g, '\\"')} Episode ${epNumber} in high quality on AnimeHub+."
-            }
-          `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TVEpisode",
+            "name": `${anime.title} Episode ${epNumber}`,
+            "episodeNumber": epNumber,
+            "partOfSeries": {
+              "@type": "TVSeries",
+              "name": anime.title
+            },
+            "image": anime.img,
+            "description": `Watch ${anime.title} Episode ${epNumber} in high quality on AnimeHub+.`
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(getBreadcrumbSchema([
+            { name: 'Home', item: '/' },
+            { name: 'Search', item: '/search' },
+            { name: anime.title, item: `/anime/${anime.id}` },
+            { name: `Episode ${epNumber}`, item: `/watch/${anime.id}/${epNumber}` }
+          ]))}
         </script>
       </Helmet>
       

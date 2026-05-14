@@ -5,6 +5,7 @@ import { Flame, Clock, Play, History, ChevronRight, LayoutGrid, Sparkles, Star, 
 import { Link } from 'react-router-dom';
 import { useAppStore } from '../store';
 import { Helmet } from 'react-helmet-async';
+import { getBreadcrumbSchema } from '../lib/utils';
 
 export function Home() {
   const [topAnime, setTopAnime] = useState<any[]>([]);
@@ -69,19 +70,22 @@ export function Home() {
         <meta name="description" content="Watch high quality anime online on AnimeHub+ for free. Stream your favorite anime series without ads, latest episodes updated daily." />
         <link rel="canonical" href="https://animehubplus.netlify.app/" />
         <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              "name": "AnimeHub+",
-              "url": "https://animehubplus.netlify.app/",
-              "potentialAction": {
-                "@type": "SearchAction",
-                "target": "https://animehubplus.netlify.app/search?q={search_term_string}",
-                "query-input": "required name=search_term_string"
-              }
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "AnimeHub+",
+            "url": "https://animehubplus.netlify.app/",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://animehubplus.netlify.app/search?q={search_term_string}",
+              "query-input": "required name=search_term_string"
             }
-          `}
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(getBreadcrumbSchema([
+            { name: 'Home', item: '/' }
+          ]))}
         </script>
       </Helmet>
       {/* Hero Section */}
