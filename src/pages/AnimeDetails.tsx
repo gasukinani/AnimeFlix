@@ -241,6 +241,31 @@ export function AnimeDetails() {
             </div>
           </section>
 
+          <section className="bg-white/[0.02] border border-white/5 rounded-[2.5rem] p-8 md:p-12 space-y-8">
+             <div className="flex items-center gap-3">
+                <Sparkles className="w-6 h-6 text-indigo-500" />
+                <h3 className="text-xl md:text-2xl font-[Outfit] font-bold text-white uppercase tracking-tight">Stream {anime.title} in Ultra HD</h3>
+             </div>
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 text-gray-400 text-sm leading-relaxed font-medium">
+               <div className="space-y-4">
+                 <p>
+                    Are you ready to watch <span className="text-white">{anime.title}</span> online for free? AnimeHub+ is your premium destination for high-quality streaming. We provide the latest episodes of <span className="text-white">{anime.title}</span> in subbed and dubbed formats as soon as they air. Our advanced player supports multiple resolutions, allowing you to enjoy every frame in stunning 1080p detail.
+                 </p>
+                 <p>
+                    Whether you are an old fan or a newcomer to <span className="text-white">{anime.title}</span>, our platform offers a seamless viewing experience. We don't just host anime; we provide a community for fans to discover new stories and relive their favorite moments. Start your journey with <span className="text-white">{anime.title}</span> today on AnimeHub+.
+                 </p>
+               </div>
+               <div className="space-y-4">
+                 <p>
+                    Why choose AnimeHub+ for <span className="text-white">{anime.title}</span>? We prioritize speed and accessibility. Our global servers ensure that you can stream <span className="text-white">{anime.title}</span> without buffering, no matter where you are. We follow the latest seasonal releases, ensuring our library is always up-to-date with the series you love.
+                 </p>
+                 <p>
+                    In addition to <span className="text-white">{anime.title}</span>, explore our massive database of over 10,000 anime series and movies. From top-rated masterpieces to hidden gems, AnimeHub+ is the only anime streaming hub you'll ever need. Watch <span className="text-white">{anime.title}</span> and more for free, 24/7.
+                 </p>
+               </div>
+             </div>
+          </section>
+
           {/* Recommendations */}
           {recommendations.length > 0 && (
              <section>

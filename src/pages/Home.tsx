@@ -296,6 +296,32 @@ export function Home() {
             </div>
           </div>
 
+          <div className="pt-20 space-y-12">
+             <div className="text-center">
+                <h3 className="text-2xl font-[Outfit] font-bold text-white uppercase tracking-tight">Frequently Asked Questions</h3>
+                <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mt-2">Everything You Need to Know</p>
+             </div>
+             
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {[
+                  { q: "Is AnimeHub+ really free?", a: "Yes, AnimeHub+ is a completely free platform. Users can stream our entire library of anime series and movies without paying any subscription fees." },
+                  { q: "Do I need an account to watch anime?", a: "No account is required to start watching. However, creating a free account allows you to save favorites and track your watch history across devices." },
+                  { q: "How often do you update with new episodes?", a: "We update our database within minutes of the original broadcast in Japan. Both subbed and dubbed versions are added as soon as they become available." },
+                  { q: "What video quality do you support?", a: "Most of our anime content is available in multiple resolutions, ranging from 360p for low data usage to 1080p Ultra HD for the best visual experience." },
+                  { q: "Is there a mobile app for AnimeHub+?", a: "Our website is fully optimized for mobile devices. You can even 'Add to Home Screen' to use it like a Progressive Web App (PWA) with a dedicated icon." },
+                  { q: "Can I download anime for offline viewing?", a: "While we specialize in high-speed streaming, many of our episodes including popular shows like One Piece and Naruto can be cached for smoother playback." }
+                ].map((faq, index) => (
+                  <div key={index} className="bg-white/[0.03] border border-white/5 p-8 rounded-3xl space-y-4 hover:bg-white/[0.05] transition-colors group">
+                    <h4 className="text-indigo-400 font-bold text-sm uppercase tracking-wider flex gap-4">
+                      <span className="text-white/20 group-hover:text-indigo-500/50 transition-colors">0{index + 1}</span>
+                      {faq.q}
+                    </h4>
+                    <p className="text-gray-500 text-sm leading-relaxed font-medium">{faq.a}</p>
+                  </div>
+                ))}
+             </div>
+          </div>
+
           <div className="pt-10 space-y-6">
              <h4 className="text-center text-white/40 text-xs font-bold uppercase tracking-[0.3em] mb-8">Popular Searches</h4>
              <div className="flex flex-wrap justify-center gap-3">
