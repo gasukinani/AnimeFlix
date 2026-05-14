@@ -1,7 +1,7 @@
 {
-  "name": "Anime Hub Plus",
-  "short_name": "AAnimeHub",
-  "description": "Watch high quality anime online on Anime Hub Plus for free.",
+  "name": "AnimeHub+",
+  "short_name": "AnimeHub+",
+  "description": "Watch high quality anime online on AnimeHub+ for free.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#05050a",

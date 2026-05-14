@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { searchAnime } from '../lib/api';
 import { AnimeCard } from '../components/AnimeCard';
+import { formatScore, formatYear } from '../lib/utils';
 import { Search as SearchIcon, Ghost, LayoutGrid, List, Play } from 'lucide-react';
 
 export function Search() {
@@ -168,8 +169,8 @@ export function Search() {
                     })}
                   </div>
                   <div className="flex items-center gap-6 mt-4">
-                    <span className="text-xs font-bold text-indigo-400 uppercase tracking-widest">★ {anime.score || 'N/A'}</span>
-                    <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">{anime.released || 'N/A'}</span>
+                    <span className="text-xs font-bold text-indigo-400 uppercase tracking-widest">★ {formatScore(anime.score, anime.id)}</span>
+                    <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">{formatYear(anime.released)}</span>
                     <span className="text-xs font-bold text-indigo-500 tracking-widest uppercase">{anime.type}</span>
                   </div>
                 </div>

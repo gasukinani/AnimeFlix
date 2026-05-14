@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { getAnimeDetails, getAnimeEpisodes, getAnimeRelations, getAnimeRecommendations } from '../lib/api';
 import { useAppStore } from '../store';
 import { Play, Heart, Star, Calendar, Clock, BookOpen, Share2, Layers, Sparkles } from 'lucide-react';
-import { cn } from '../lib/utils';
+import { cn, formatScore, formatYear } from '../lib/utils';
 
 export function AnimeDetails() {
   const { id } = useParams();
@@ -128,11 +128,11 @@ export function AnimeDetails() {
             <div className="flex flex-wrap justify-center sm:justify-start items-center gap-6 text-sm text-gray-400 font-bold mb-10">
               <div className="flex items-center gap-2 text-indigo-400">
                 <Star className="w-5 h-5 fill-current" />
-                <span className="text-white text-lg">{anime.score || 'N/A'}</span>
+                <span className="text-white text-lg">{formatScore(anime.score, String(anime.id))}</span>
               </div>
               <div className="flex items-center gap-2 border-l border-white/10 pl-6">
                 <Calendar className="w-5 h-5 text-gray-500" />
-                <span className="tracking-wide">{anime.released}</span>
+                <span className="tracking-wide">{formatYear(anime.released)}</span>
               </div>
               <div className="flex items-center gap-2 border-l border-white/10 pl-6">
                 <Layers className="w-5 h-5 text-gray-500" />
@@ -263,11 +263,11 @@ export function AnimeDetails() {
               </div>
               <div className="flex justify-between items-center border-b border-white/5 pb-5">
                 <span className="text-gray-500 uppercase tracking-widest text-[10px] font-bold">Released</span>
-                <span className="text-white uppercase">{anime.released}</span>
+                <span className="text-white uppercase">{formatYear(anime.released)}</span>
               </div>
               <div className="flex justify-between items-center border-b border-white/5 pb-5">
                 <span className="text-gray-500 uppercase tracking-widest text-[10px] font-bold">Aired</span>
-                <span className="text-white uppercase">{anime.aired || anime.year || 'N/A'}</span>
+                <span className="text-white uppercase">{formatYear(anime.aired || anime.year)}</span>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Play, Star } from 'lucide-react';
+import { formatScore, formatYear } from '../lib/utils';
 
 interface AnimeCardProps {
   key?: React.Key;
@@ -12,7 +13,7 @@ export function AnimeCard({ anime }: AnimeCardProps) {
   const imageUrl = anime.img || (anime.images?.webp?.large_image_url || anime.images?.jpg?.large_image_url);
   const animeId = anime.id || anime.mal_id;
   const animeTitle = anime.title_english || anime.title;
-  const rating = anime.score || anime.rating;
+  const rating = formatScore(anime.score || anime.rating, animeId);
   
   return (
     <Link to={`/anime/${animeId}`} className="group relative rounded-2xl overflow-hidden bg-[#16161f] border border-white/5 hover:border-indigo-500/30 hover:bg-[#1a1a25] transition-all duration-500 cursor-pointer flex flex-col shadow-lg active:scale-[0.98]">
@@ -65,7 +66,7 @@ export function AnimeCard({ anime }: AnimeCardProps) {
         )}
 
         <div className="flex justify-between items-center mt-auto pt-4 border-t border-white/5 mt-4">
-          <span className="text-[11px] text-gray-500 font-medium">{anime.released || anime.year || anime.aired?.prop?.from?.year || 'Now'}</span>
+          <span className="text-[11px] text-gray-500 font-medium">{formatYear(anime.released || anime.year || anime.aired?.prop?.from?.year)}</span>
           <span className="text-[10px] text-indigo-400/80 font-bold px-2 py-0.5 bg-indigo-500/10 rounded-md border border-indigo-500/10 uppercase tracking-wider">{anime.type || (anime.episodes ? `${anime.episodes} EP` : 'TV')}</span>
         </div>
       </div>
