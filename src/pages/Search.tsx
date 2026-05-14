@@ -207,6 +207,30 @@ export function Search() {
           <p className="mt-2 text-gray-500 font-bold text-xs uppercase tracking-widest">Search through thousands of anime titles.</p>
         </div>
       )}
+      {/* SEO Description Section */}
+      <section className="mt-24 px-4 py-16 border-t border-white/5 bg-white/[0.02] rounded-[3rem]">
+        <div className="max-w-4xl mx-auto space-y-8">
+          <div className="text-center">
+            <h2 className="text-2xl md:text-4xl font-[Outfit] font-bold text-white tracking-tight uppercase">Explore Thousands of Anime Series</h2>
+            <p className="mt-2 text-indigo-400 font-bold uppercase tracking-widest text-[10px]">Your Library of Infinite Adventures</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 text-gray-400 text-sm leading-relaxed font-medium">
+            <div className="space-y-4">
+              <h3 className="text-white font-bold uppercase tracking-wider">Advanced Anime Search</h3>
+              <p>
+                Find your favorite anime series effortlessly using our powerful search and filtering system. Whether you are looking for the latest seasonal releases or classic masterpieces, AnimeHub+ gives you the tools to discover exactly what you crave. Filter by genres like Action, Romance, Horror, or Fantasy to narrow down your choices.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <h3 className="text-white font-bold uppercase tracking-wider">Trending & Top Rated</h3>
+              <p>
+                Stay ahead of the curve with our trending and top-rated sections. We track what's popular in the anime community so you never miss a hit. Our library is updated in real-time, ensuring you have access to the latest episodes as soon as they are available. Join millions of fans and start streaming in high definition today.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

@@ -57,7 +57,7 @@ export function Layout() {
               <div className="w-9 h-9 md:w-10 md:h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-600/30">
                  <PlaySquare className="w-5 h-5 text-white fill-current" />
               </div>
-              <h1 className="text-xl font-[Outfit] font-bold tracking-tight text-white hidden sm:block">
+              <h1 className="text-xl font-[Outfit] font-bold tracking-tight text-white block">
                 AnimeHub<span className="text-indigo-500">+</span>
               </h1>
             </NavLink>
@@ -144,12 +144,12 @@ export function Layout() {
             </div>
 
             <div>
-              <h4 className="text-white font-bold mb-6 tracking-widest text-[10px] uppercase">Genres</h4>
+              <h4 className="text-white font-bold mb-6 tracking-widest text-[10px] uppercase">Browse by Category</h4>
               <ul className="space-y-4 text-sm text-gray-400 font-medium">
-                <li><Link to="/search?genre=1&name=Action" className="hover:text-indigo-400 transition-colors">Action</Link></li>
-                <li><Link to="/search?genre=2&name=Adventure" className="hover:text-indigo-400 transition-colors">Adventure</Link></li>
-                <li><Link to="/search?genre=4&name=Comedy" className="hover:text-indigo-400 transition-colors">Comedy</Link></li>
-                <li><Link to="/search?genre=10&name=Fantasy" className="hover:text-indigo-400 transition-colors">Fantasy</Link></li>
+                <li><Link to="/search?type=trending" className="hover:text-indigo-400 transition-colors">Trending Anime</Link></li>
+                <li><Link to="/search?type=movie" className="hover:text-indigo-400 transition-colors">Anime Movies</Link></li>
+                <li><Link to="/search?type=seasonal" className="hover:text-indigo-400 transition-colors">Latest Season</Link></li>
+                <li><Link to="/search?type=toprated" className="hover:text-indigo-400 transition-colors">Top Rated Series</Link></li>
               </ul>
             </div>
 
